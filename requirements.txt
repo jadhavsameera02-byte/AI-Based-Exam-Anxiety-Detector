@@ -1,11 +1,8 @@
 fastapi
 uvicorn
-streamlit
 pandas
 numpy
 scikit-learn
-transformers
-torch
 plotly
 requests
 pyngrok
