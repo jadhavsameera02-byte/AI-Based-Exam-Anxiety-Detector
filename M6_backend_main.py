@@ -6,8 +6,12 @@ import time
 import logging
 from typing import Optional
 import numpy as np
-import torch
-from transformers import BertTokenizer, BertForSequenceClassification
+try:
+    import torch
+    from transformers import BertTokenizer, BertForSequenceClassification
+    TORCH_AVAILABLE = True
+except ImportError:
+    TORCH_AVAILABLE = False
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -21,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 MODEL_DIR = os.getenv("MODEL_DIR", "model/saved_model")
 MAX_LEN   = int(os.getenv("MAX_LEN", 128))
-DEVICE    = "cuda" if torch.cuda.is_available() else "cpu"
+DEVICE = "cuda" if TORCH_AVAILABLE and torch.cuda.is_available() else "cpu"
 
 LABEL2ID  = {"Low Anxiety": 0, "Moderate Anxiety": 1, "High Anxiety": 2}
 ID2LABEL  = {0: "Low Anxiety", 1: "Moderate Anxiety", 2: "High Anxiety"}
