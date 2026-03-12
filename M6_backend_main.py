@@ -164,3 +164,6 @@ def predict_batch(requests_list: list[PredictRequest]):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("M6_backend_main:app", host="0.0.0.0", port=8000, reload=True)
+import uvicorn
+import os
+uvicorn.run....
